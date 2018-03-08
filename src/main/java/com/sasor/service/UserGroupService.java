@@ -106,14 +106,13 @@ public class UserGroupService {
             if(group == null) {
                 group = new GroupObject();
                 group.setGroupName(groupName);
+                groupRepository.save(group);
             }
             if( !group.getUsers().stream().anyMatch( x -> x.getId() == user.getId())){
-                group.getUsers().add(user);
                 user.getGroups().add(group);
             }else{
                 throw new UserGroupServiceException( userName + " already belongs to " + groupName);
             }
-            groupRepository.save(group);
             userRepository.save(user);
         }else{
             throw new UserGroupServiceException( userName + " doesn't exist ");

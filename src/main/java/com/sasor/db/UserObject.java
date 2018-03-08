@@ -20,12 +20,10 @@ import java.util.Set;
  */
 @Entity
 public class UserObject {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="ID")
+    @Id @GeneratedValue
     private int id;
-    @NotNull
-    @Column(name = "userName",unique=true)
+
+    @NotNull @Column(name = "userName",unique=true)
     private String userName;
     @NotNull
     private String password; // Change to char[] in future (String objects are harder to get rid of/clear)
@@ -40,14 +38,14 @@ public class UserObject {
     @NotNull
     private ZonedDateTime dateOfBirth;
 
-    @ElementCollection(targetClass=GroupObject.class)
-    private Set<GroupObject> groups = new HashSet<>();;
+//  @ElementCollection(targetClass=GroupObject.class)
+    @ManyToMany
+    private Set<GroupObject> groups = new HashSet<>();
 
     /* Borg - this could get expensive/redundant if all we make a request to get all users, and in the process we calculate all
        the groups for every user.
      */
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_OBJECT_GROUP_OBJECT", joinColumns = { @JoinColumn(name = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID") })
+//(strategy= GenerationType.AUTO)
     public Set<GroupObject> getGroups() { return groups; }
 
     public String getUserName() {

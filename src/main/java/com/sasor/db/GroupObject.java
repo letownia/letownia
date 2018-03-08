@@ -17,16 +17,14 @@ import java.util.Set;
 @Entity
 public class GroupObject {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="ID")
+    @Id @GeneratedValue
     private int id;
 
-    @NotNull
-    @Column(name = "groupName",unique=true)
+    @NotNull @Column(name = "groupName",unique=true)
     private String groupName;
 
-
+    @ManyToMany(mappedBy="groups")
+    private Set<UserObject> users = new HashSet<>();
 
     public String getGroupName() {
         return groupName;
@@ -36,8 +34,6 @@ public class GroupObject {
         this.groupName = groupName;
     }
 
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="groups")
-    private Set<UserObject> users = new HashSet<>();
     public Set<UserObject> getUsers() {
         return users;
     }
