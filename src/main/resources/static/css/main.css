@@ -1,0 +1,17 @@
+h1{
+	color:#0000FF;
+}
+
+/*Obnoxious css... should port to SCSS*/
+div.tableAlignedForm > form{
+    display: table;
+}
+div.tableAlignedForm > form > p{
+    display: table-row;
+}
+div.tableAlignedForm  > form > p > label {
+    display: table-cell;
+}
+div.tableAlignedForm  > form > p > input {
+    display: table-cell;
+}
